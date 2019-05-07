@@ -1,0 +1,45 @@
+body{
+}
+header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main{
+    display: flex;
+    align-items:center ;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.orgnizer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    align-content: center
+}
+.cell{
+    height: 200px;
+    width: 200px;
+}
+.top{
+    border-top:2.5px solid black;
+}
+.bottom{
+    border-bottom: 2.5px solid black;
+}
+.left{
+    border-left: 2.5px solid black;
+}
+.right{
+    border-right:2.5px solid black;
+}
+aside{
+    position: absolute;
+    top:50%;
+    left:0;
+}
