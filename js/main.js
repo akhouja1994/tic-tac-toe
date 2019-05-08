@@ -9,6 +9,10 @@ let tieTimes = 0
 let playerChoice = 1;
 let computerPlaying = false;
 $('#playAgain').hide()
+$('#Token').hide()
+$('#xToken').hide()
+$('#oToken').hide()
+$('.computerOption').hide()
 
 
 //functions section
@@ -17,6 +21,9 @@ const playerX = function (event) {
     $(event.target).off()
     $('.turns').text('O turn')
     playerXWinsArray[$(event.target).attr('id')]='X';
+    if(computerPlaying===true && $('.turns').text()!=='O wins' && $('.turns').text()!=='X wins'){
+        easyComputerO()
+    }
     if(playerXWinsArray[0]!==undefined && playerXWinsArray[1]!==undefined && playerXWinsArray[2]!==undefined
         ||playerXWinsArray[3]!==undefined && playerXWinsArray[4]!==undefined && playerXWinsArray[5]!==undefined
         ||playerXWinsArray[6]!==undefined && playerXWinsArray[7]!==undefined && playerXWinsArray[8]!==undefined
@@ -41,6 +48,9 @@ const playerX = function (event) {
     }
     tableFills++;
     playerChanger = 2;
+    if(computerPlaying===true){
+        playerChanger=1
+    }
 }
 
 
@@ -49,6 +59,9 @@ const playerO = function (event) {
     $(event.target).off()
     $('.turns').text('X turn')
     playerOWinsArray[$(event.target).attr('id')]='O';
+    if(computerPlaying===true && $('.turns').text()!=='X wins'){
+        easyComputerX()
+    }
     if(playerOWinsArray[0]!==undefined && playerOWinsArray[1]!==undefined && playerOWinsArray[2]!==undefined
         ||playerOWinsArray[3]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[5]!==undefined
         ||playerOWinsArray[6]!==undefined && playerOWinsArray[7]!==undefined && playerOWinsArray[8]!==undefined
@@ -73,27 +86,90 @@ const playerO = function (event) {
     }
     tableFills++;
     playerChanger = 1;
+    if(computerPlaying===true){
+        playerChanger=2
+    }
+}
+
+const easyComputerX = function (){
+    let i = true;
+    while(i===true){
+        j=Math.floor(Math.random()*9);
+        if(playerXWinsArray[j]==null && playerOWinsArray[j]==null){
+            playerXWinsArray[j]='X'
+            $('#'+j).html('<img src="assest/x.png" alt="X">')
+            $('.turns').text('O turn')
+            playerChanger=2
+            i=false
+            if(playerXWinsArray[0]!==undefined && playerXWinsArray[1]!==undefined && playerXWinsArray[2]!==undefined
+                ||playerXWinsArray[3]!==undefined && playerXWinsArray[4]!==undefined && playerXWinsArray[5]!==undefined
+                ||playerXWinsArray[6]!==undefined && playerXWinsArray[7]!==undefined && playerXWinsArray[8]!==undefined
+                ||playerXWinsArray[0]!==undefined && playerXWinsArray[3]!==undefined && playerXWinsArray[6]!==undefined
+                ||playerXWinsArray[1]!==undefined && playerXWinsArray[4]!==undefined && playerXWinsArray[7]!==undefined
+                ||playerXWinsArray[2]!==undefined && playerXWinsArray[5]!==undefined && playerXWinsArray[8]!==undefined
+                ||playerXWinsArray[0]!==undefined && playerXWinsArray[4]!==undefined && playerXWinsArray[8]!==undefined
+                ||playerXWinsArray[6]!==undefined && playerXWinsArray[4]!==undefined && playerXWinsArray[2]!==undefined)
+                {
+                    $('.cell').off()
+                    $('.turns').text('X wins')
+                    xWinsTimes++
+                    $('#xWins').text('X wins: '+xWinsTimes)
+                    $('#playAgain').show()
+                }
+            else if(tableFills===8){
+                $('.cell').off()
+                tieTimes++
+                $('#ties').text('Ties : '+tieTimes)
+                $('#playAgain').show()
+                $('.turns').text('Tie')
+            }
+            tableFills++;
+        }
+    }
+}
+
+const easyComputerO = function (){
+    let i = true;
+    while(i===true){
+        j=Math.floor(Math.random()*9);
+        if(playerOWinsArray[j]==null && playerXWinsArray[j]==null){
+            playerOWinsArray[j]='O'
+            $('#'+j).html('<img src="assest/o-png-89-images-in-collection-page-2-png-o-200_200.png" alt="O">')
+            $('.turns').text('X turn')
+            playerChanger=1
+            i=false
+            if(playerOWinsArray[0]!==undefined && playerOWinsArray[1]!==undefined && playerOWinsArray[2]!==undefined
+                ||playerOWinsArray[3]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[5]!==undefined
+                ||playerOWinsArray[6]!==undefined && playerOWinsArray[7]!==undefined && playerOWinsArray[8]!==undefined
+                ||playerOWinsArray[0]!==undefined && playerOWinsArray[3]!==undefined && playerOWinsArray[6]!==undefined
+                ||playerOWinsArray[1]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[7]!==undefined
+                ||playerOWinsArray[2]!==undefined && playerOWinsArray[5]!==undefined && playerOWinsArray[8]!==undefined
+                ||playerOWinsArray[0]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[8]!==undefined
+                ||playerOWinsArray[6]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[2]!==undefined)
+                {
+                    $('.cell').off()
+                    $('.turns').text('O wins')
+                    oWinsTimes++
+                    $('#oWins').text('O wins: '+oWinsTimes)
+                    $('#playAgain').show()
+                }
+            tableFills++;
+        }
+    }
 }
 
 
 const playerTurn = function(event){
     if(playerChanger===1){
-        if(computerPlaying===true && playerChoice===2){
-            dsw
-        }
-        else{
-            playerX(event)
-        }
+        playerX(event)
+
     }
     
 
     else if(playerChanger===2){
-        if(computerPlaying===true && playerChoice===1){
 
-        }
-        else{
-            playerO(event)
-        }
+ 
+        playerO(event)
     }
 }
 
@@ -107,6 +183,9 @@ const playAgain = function(){
     playerChanger = 1
     $('.turns').text('X turn')
     $('#playAgain').hide()
+    if(computerPlaying===true && playerChoice===2){
+        easyComputerX()
+    }
 }
 
 
@@ -144,4 +223,29 @@ $('#oToken').on('click',function(){
     $('#xToken').hide()
     $('#oToken').hide()
     $('.turns').text('X turn')
+    easyComputerX()
+})
+$('#computer').on('click',function(){
+    $('.aiLevel').show()
+    $('#computer').hide()
+    $('#twoPlayers').hide()
+    computerPlaying=true;
+})
+$('#easy').on('click',function(){
+    $('.aiLevel').hide()
+    $('#Token').show()
+    $('#xToken').show()
+    $('#oToken').show()
+})
+$('#normal').on('click',function(){
+    $('.aiLevel').hide()
+    $('#Token').show()
+    $('#xToken').show()
+    $('#oToken').show()
+})
+$('#unbeatable').on('click',function(){
+    $('.aiLevel').hide()
+    $('#Token').show()
+    $('#xToken').show()
+    $('#oToken').show()
 })
