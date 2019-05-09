@@ -8,6 +8,7 @@ let oWinsTimes = 0;
 let tieTimes = 0
 let playerChoice = 1;
 let computerPlaying = false;
+let oWin=false
 $('#playAgain').hide()
 $('#Token').hide()
 $('#xToken').hide()
@@ -21,7 +22,7 @@ const playerX = function (event) {
     $(event.target).off()
     $('.turns').text('O turn')
     playerXWinsArray[$(event.target).attr('id')]='X';
-    if(computerPlaying===true && $('.turns').text()!=='O wins' && $('.turns').text()!=='X wins'){
+    if(computerPlaying===true && tableFills<=7){
         easyComputerO()
     }
     if(playerXWinsArray[0]!==undefined && playerXWinsArray[1]!==undefined && playerXWinsArray[2]!==undefined
@@ -59,9 +60,7 @@ const playerO = function (event) {
     $(event.target).off()
     $('.turns').text('X turn')
     playerOWinsArray[$(event.target).attr('id')]='O';
-    if(computerPlaying===true && $('.turns').text()!=='X wins'){
-        easyComputerX()
-    }
+    tableFills++;
     if(playerOWinsArray[0]!==undefined && playerOWinsArray[1]!==undefined && playerOWinsArray[2]!==undefined
         ||playerOWinsArray[3]!==undefined && playerOWinsArray[4]!==undefined && playerOWinsArray[5]!==undefined
         ||playerOWinsArray[6]!==undefined && playerOWinsArray[7]!==undefined && playerOWinsArray[8]!==undefined
@@ -76,15 +75,18 @@ const playerO = function (event) {
             oWinsTimes++ ;
             $('#oWins').text('O wins: '+oWinsTimes)
             $('#playAgain').show()
+            oWin=true
         }
-    else if(tableFills===8){
+    else if(tableFills===9){
         $('.cell').off()
         tieTimes++
         $('#ties').text('Ties : '+tieTimes)
         $('#playAgain').show()
         $('.turns').text('Tie')
     }
-    tableFills++;
+    if(computerPlaying===true && oWin ===false){
+        easyComputerX()
+    }
     playerChanger = 1;
     if(computerPlaying===true){
         playerChanger=2
@@ -93,7 +95,7 @@ const playerO = function (event) {
 
 const easyComputerX = function (){
     let i = true;
-    while(i===true){
+    while(i===true ){
         j=Math.floor(Math.random()*9);
         if(playerXWinsArray[j]==null && playerOWinsArray[j]==null){
             playerXWinsArray[j]='X'
@@ -183,6 +185,7 @@ const playAgain = function(){
     playerChanger = 1
     $('.turns').text('X turn')
     $('#playAgain').hide()
+    oWin=false
     if(computerPlaying===true && playerChoice===2){
         easyComputerX()
     }
@@ -197,6 +200,13 @@ const clearHistory = function(){
     $('#oWins').text('O wins: '+oWinsTimes)
     $('#ties').text('Ties : '+tieTimes)
 }
+
+
+function myFunction(x) {
+    x.classList.toggle("change");
+    $('nav').toggleClass('nav')
+    $('nav').toggleClass('change')
+  }
 
 
 
@@ -227,8 +237,7 @@ $('#oToken').on('click',function(){
 })
 $('#computer').on('click',function(){
     $('.aiLevel').show()
-    $('#computer').hide()
-    $('#twoPlayers').hide()
+
     computerPlaying=true;
 })
 $('#easy').on('click',function(){
@@ -248,4 +257,9 @@ $('#unbeatable').on('click',function(){
     $('#Token').show()
     $('#xToken').show()
     $('#oToken').show()
+})
+$('#twoPlayers').on('click',function(){
+    playerChanger=1
+    $('.turns').text('X turn')
+    computerPlaying=false
 })

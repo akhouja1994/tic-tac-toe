@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/stylesheet.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
     <title>Tic Tac Toe</title>
 </head>
+<div class="container" onclick="myFunction(this)">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+</div>
+<nav class="nav">
+    
+    <div><button id="computer" >computer</button><button id="twoPlayers">2 players</button></div>
+    <div><button id="easy" class="aiLevel computerOption">easy</button><button id="normal"
+            class="aiLevel computerOption">normal</button><button id="unbeatable"
+            class="aiLevel computerOption">unbeatable</button></div>
+    <div>
+        <h3 id="Token" >Choose Player token</h3><button class="computerOption" id="xToken">X</button><button
+            class="computerOption" id="oToken">O</button>
+    </div>
+    <h3 id="xWins" >X wins: 0</h3>
+    <h3 id="oWins" >O wins: 0</h3>
+    <h3 id="ties" >Ties : 0</h3>
+    <button id="clearHistory" >Clear history</button>
+    <button id="playAgain" >Play again</button>
+</nav>
+
 <body>
     <header>
-        <h1>Tic Tac Toe</h1>
+        <h1 id="title">Tic Tac Toe</h1>
         <h2 class="turns">Choose Token</h2>
     </header>
     <main>
@@ -28,21 +53,12 @@
             <div class="cell right left top" id="7"></div>
             <div class="cell left top" id="8"></div>
         </div>
-        <aside>
-            <div><button id="computer">computer</button><button id="twoPlayers">2 players</button></div>
-            <div><button id="easy" class="aiLevel computerOption">easy</button><button id="normal" class="aiLevel computerOption">normal</button><button id="unbeatable" class="aiLevel computerOption">unbeatable</button></div>
-            <div><h3 id="Token">Choose Player token</h3><button class="computerOption" id="xToken">X</button><button class="computerOption" id="oToken">O</button></div>
-            <h3 id="xWins">X wins: 0</h3>
-            <h3 id="oWins">O wins: 0</h3>
-            <h3 id="ties">Ties : 0</h3>
-            <button id="clearHistory">Clear history</button>
-            <button id="playAgain">Play again</button>
-        </aside>
     </main>
     <footer></footer>
-        
+
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
